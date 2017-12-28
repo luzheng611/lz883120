@@ -6,7 +6,7 @@ import android.content.Context;
  * Created by Administrator on 2017/12/26.
  */
 
-public class mUtils {
+public class IUtils {
 
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)

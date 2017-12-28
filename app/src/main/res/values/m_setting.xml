@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">趣找</string>
+    <string name="versonCode">1.0.0</string>
+    <color name="main_color">#f3af0d</color>
+
+    <string-array name="bottom_title">
+        <item>商市</item>
+        <item>活动</item>
+        <item>消息</item>
+        <item>我的</item>
+    </string-array>
+</resources>
