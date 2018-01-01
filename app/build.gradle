@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.quzhao"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -14,6 +14,14 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    signingConfigs {
+        debug {
+            storeFile file('D://QuZhao/quzhao.jks')
+            storePassword "883120"
+            keyAlias "quzhao"
+            keyPassword "883120"
         }
     }
 }
@@ -32,6 +40,21 @@ dependencies {
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     //图片加载
     compile 'com.github.bumptech.glide:glide:4.4.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
+    //提示消息
+    compile 'com.github.GrenderG:Toasty:1.2.8'
+    //滑动返回
+    compile 'cn.bingoogolapple:bga-swipebacklayout:1.1.8@aar'
+    //广告轮播
+    compile 'com.youth.banner:banner:1.4.10'
+    //收缩容器
+    compile 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
+    //城市选择
+    compile 'com.zaaach:citypicker:1.2'
+    //星标
+    compile 'me.zhanghai.android.materialratingbar:library:1.2.0'
+    //播放器
+    compile 'cn.jzvd:jiaozivideoplayer:6.2.3'
 
     implementation 'com.android.support:recyclerview-v7:27.0.2'
 }

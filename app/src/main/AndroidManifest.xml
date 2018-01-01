@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.quzhao">
 
+
+
+
+
+
+    <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -27,6 +34,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        xmlns:tools="http://schemas.android.com/tools"
+
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
@@ -42,6 +51,29 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         <!--</activity>-->
+
+
+       <!--商圈详情-->
+        <activity android:name=".Activity.Detail.Classfy_ShangQuan2"/>
+
+        <activity android:name=".Activity.Detail.Classfy_ShangQuan"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".Activity.MapTest"/>
+        <activity android:name=".Activity.Detail.ShangShi_Detail"/>
+        <activity android:name=".Activity.Detail.Search"/>
+
+        //城市选择
+        <activity
+            android:name="com.zaaach.citypicker.CityPickerActivity"
+            android:theme="@style/CityPicker.NoActionBar"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <!--高德定位key-->
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="ba0bd80c19ea3a5469c0cceabe8f3fa6">
+
+        </meta-data>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.quzhao.Adapter;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -14,13 +15,19 @@ import java.util.List;
  */
 
 public class CyclePageAdapter extends BaseQuickAdapter<HashMap<String,String >,BaseViewHolder> {
-
-    public CyclePageAdapter(@Nullable List<HashMap<String, String>> data) {
+    private Context context;
+    public CyclePageAdapter(Context context,@Nullable List<HashMap<String, String>> data) {
         super(R.layout.item_gallery, data);
+        this.context=context;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, HashMap<String, String> item) {
-
+    protected void convert(final BaseViewHolder helper, HashMap<String, String> item) {
+//        helper.getView(R.id.image).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(context, "点击促销活动"+helper.getAdapterPosition(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 }

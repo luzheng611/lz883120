@@ -21,13 +21,13 @@ import com.quzhao.Util.IUtils;
 
 public class ICardView {
 
-    public static View getNewInstance(Context context){
+    public static View getNewInstance(Context context){//用于直接添加
         View view= LayoutInflater.from(context).inflate(R.layout.custom_cardview,null);
         initCardView(context,view);
         return view;
     }
 
-    public  static void  initCardView(Context context,View view){
+    public  static void  initCardView(Context context,View view){//用于布局实例化，初始化
         TextView textView1=view.findViewById(R.id.xingcheng);
         TextView textView2=view.findViewById(R.id.shequ);
         TextView textView3=view.findViewById(R.id.wuliu);
