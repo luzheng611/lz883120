@@ -56,7 +56,7 @@ public class FragmentOne extends Fragment {
 
     private void initCuXiao() {
         ArrayList<HashMap<String,String >> list=new ArrayList<>();
-        for(int i=0;i<20;i++){
+        for(int i=0;i<10;i++){
             HashMap<String,String > map=new HashMap<>();
             list.add(map);
         }

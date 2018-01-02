@@ -9,14 +9,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.quzhao.Base.ICardView;
 import com.quzhao.R;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -35,14 +33,13 @@ public class FragmentTwo extends Fragment {
     private Banner banner;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private CardView cardView;
+
     private String titls[]= new String[]{"商圈","商铺","汽车","家居","服装"};
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragement_two,null);
-        cardView=view.findViewById(R.id.cardview);
-        ICardView.initCardView(getActivity(),cardView);
+
 
         banner=view.findViewById(R.id.banner);
         banner.setBannerStyle(BannerConfig.NOT_INDICATOR);

@@ -2,6 +2,8 @@ package com.quzhao.Adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -23,11 +25,11 @@ public class CyclePageAdapter extends BaseQuickAdapter<HashMap<String,String >,B
 
     @Override
     protected void convert(final BaseViewHolder helper, HashMap<String, String> item) {
-//        helper.getView(R.id.image).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(context, "点击促销活动"+helper.getAdapterPosition(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        helper.getView(R.id.image).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "点击促销活动"+helper.getAdapterPosition(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

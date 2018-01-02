@@ -167,6 +167,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+
                 ((TextView) tab.getCustomView().findViewById(R.id.home_tab_text)).setTextColor(getResources().getColor(R.color.main_color));
                 pager.setCurrentItem(tab.getPosition());
                 title.setText(adapter.getPageTitle(tab.getPosition()));
@@ -184,6 +185,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
 
             }
         });
+        pager.requestDisallowInterceptTouchEvent(true);
         pager.setCurrentItem(0);
         tabLayout.getTabAt(0).getCustomView().setSelected(true);
         ((TextView) tabLayout.getTabAt(0).getCustomView().findViewById(R.id.home_tab_text)).setTextColor(getResources().getColor(R.color.main_color));
