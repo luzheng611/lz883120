@@ -141,13 +141,30 @@
 
         </com.amap.api.maps.MapView>
 
-
-        <include layout="@layout/custom_cardview"
-
+        <LinearLayout
+            android:id="@+id/card_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-           android:layout_margin="10dp"
-            android:layout_gravity="bottom"/>
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/down"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/down"
+                android:padding="10dp"
+                android:background="@drawable/circle_white_button"/>
+
+            <include layout="@layout/custom_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                />
+
+        </LinearLayout>
+
     </FrameLayout>
 
 

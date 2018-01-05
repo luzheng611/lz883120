@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.quzhao.Activity.Detail.Classfy_ShangQuan;
 import com.quzhao.Activity.Detail.Classfy_ShangQuan2;
 import com.quzhao.R;
 import com.quzhao.Util.IUtils;
@@ -53,12 +52,12 @@ public class Fragment_two_classfy extends Fragment {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if(getArguments()!=null){
-                    startActivity(new Intent(getActivity(), Classfy_ShangQuan.class));
-                }else{
+//                if(getArguments()!=null){
+//                    startActivity(new Intent(getActivity(), Classfy_ShangQuan.class));
+//                }else{
                     Intent intent=new Intent(getActivity(), Classfy_ShangQuan2.class);
                     startActivity(intent);
-                }
+//                }
 
             }
         });

@@ -51,12 +51,12 @@
     </com.quzhao.CustomUI.NoScrollViewPager>
 
 
-    <!--<View android:layout_width="match_parent"-->
-        <!--android:layout_height="1px"-->
-        <!--android:background="@color/wordhuise"-->
-        <!--android:layout_gravity="bottom"-->
-        <!--android:layout_marginBottom="45dp"-->
-        <!--/>-->
+    <View android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/wordhuise"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="45dp"
+        />
     <android.support.design.widget.TabLayout
         android:id="@+id/home_bottom_tablayout"
         android:layout_width="match_parent"

@@ -23,7 +23,6 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.quzhao.Activity.Detail.Search;
 import com.quzhao.Base.BaseActivity;
 import com.quzhao.Fragement.FragmentFour;
 import com.quzhao.Fragement.FragmentOne;
@@ -126,7 +125,8 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, Search.class));
+//                startActivity(new Intent(MainActivity.this, Search.class));
+                startActivity(new Intent(MainActivity.this, MapTest.class));
             }
         });
     }

@@ -10,6 +10,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
@@ -19,12 +21,23 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
+import com.amap.api.maps.MapView;
+import com.amap.api.maps.TextureMapView;
+import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.CameraPosition;
+import com.amap.api.maps.model.IndoorBuildingInfo;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.quzhao.Base.BaseActivity;
 import com.quzhao.Base.ICardView;
+import com.quzhao.CustomUI.IndoorFloorSwitchView;
 import com.quzhao.R;
 import com.quzhao.Util.IUtils;
+import com.quzhao.Util.LConstants;
+import com.quzhao.Util.LogUtil;
+import com.quzhao.Util.MapUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -51,6 +64,12 @@ public class Classfy_ShangQuan2 extends BaseActivity {
 
     private TextView cuxiao, join;
     private ExpandbleAdapter adapter;
+    private MapView mapView1;
+//    private TextureMapView mapView1;
+    private TextureMapView mapView2;
+    private IndoorFloorSwitchView indoorFloorSwitchView;
+    private IndoorBuildingInfo mIndoorBuildingInfo;
+    private RelativeLayout mapLayout;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +131,7 @@ public class Classfy_ShangQuan2 extends BaseActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         ArrayList<HashMap<String, String>> list = new ArrayList<>();
-        String titles[] = new String[]{"促销信息", "商店布局图", "附近信息"};
+        String titles[] = new String[]{"促销信息", "商圈布局图", "附近信息"};
         for (int i = 0; i < titles.length; i++) {
             HashMap<String, String> map = new HashMap<>();
             map.put("title", titles[i]);
@@ -121,7 +140,7 @@ public class Classfy_ShangQuan2 extends BaseActivity {
         }
         adapter = new ExpandbleAdapter(this, list);
         adapter.setFooterView(ICardView.getNewInstance(this));
-
+        adapter.setFooterViewAsFlow(false);
         recyclerView.setAdapter(adapter);
 
 
@@ -148,6 +167,13 @@ public class Classfy_ShangQuan2 extends BaseActivity {
 
             }
         });
+        mapLayout= (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.shinei_map,null);
+        mapView1=mapLayout.findViewById(R.id.map);
+        indoorFloorSwitchView=mapLayout.findViewById(R.id.indoor_switchview);
+        mapView2=new TextureMapView(this);
+        mapView1.onCreate(savedInstanceState);
+        mapView2.onCreate(savedInstanceState);
+
     }
 
 
@@ -185,32 +211,95 @@ public class Classfy_ShangQuan2 extends BaseActivity {
                         ll.leftMargin=IUtils.dip2px(context,10);
                         ll.rightMargin=IUtils.dip2px(context,10);
                         imageView.setLayoutParams(ll);
-
-
                         imageView.setImageResource(image[i%image.length]);
                         linearLayout.addView(imageView);
                     }
                     expandableLayout.addView(horizontalScrollView);
                     break;
                 case 1:
-                    int width=context.getResources().getDisplayMetrics().widthPixels;
-                    int height= ViewGroup.LayoutParams.WRAP_CONTENT;
-                    ViewGroup.LayoutParams vl=new ViewGroup.LayoutParams(width,height);
-                    ImageView imageView=new ImageView(context);
-                    imageView.setAdjustViewBounds(true);
-                    imageView.setImageResource(R.drawable.test_mall);
-                    imageView.setLayoutParams(vl);
-                    expandableLayout.addView(imageView);
+//                    int width=context.getResources().getDisplayMetrics().widthPixels;
+//                    int height= IUtils.dip2px(Classfy_ShangQuan2.this,300);
+//                    ViewGroup.LayoutParams vl=new ViewGroup.LayoutParams(width,height);
+//
+//                    mapView1.setLayoutParams(vl);
+                    final AMap aMap=mapView1.getMap();
+
+                    MapUtils.changeCamera(aMap, CameraUpdateFactory.newCameraPosition(new CameraPosition(LConstants.SHINEIDITU,19,0,30))
+                            , new AMap.CancelableCallback() {
+                                @Override
+                                public void onFinish() {
+                                    LogUtil.e("地图动画完成");
+                                }
+
+                                @Override
+                                public void onCancel() {
+                                    LogUtil.e("地图动画取消");
+                                }
+                            });
+                    aMap.showIndoorMap(true);
+                    // 关闭SDK自带的室内地图控件
+                    aMap.getUiSettings().setIndoorSwitchEnabled(false);
+                    UiSettings uiSettings=aMap.getUiSettings();
+
+
+
+                    aMap.setOnIndoorBuildingActiveListener(new AMap.OnIndoorBuildingActiveListener() {
+                        @Override
+                        public void OnIndoorBuilding(final IndoorBuildingInfo indoorBuildingInfo) {
+                            Log.e("注册室内地图信息", "indoor OnIndoorBuilding " + indoorBuildingInfo);
+                            if(indoorBuildingInfo!=null){
+                                indoorFloorSwitchView.setVisible(true);
+                            }else{
+                                indoorFloorSwitchView.setVisible(false);
+                            }
+                            if(indoorBuildingInfo != null) {
+                                recyclerView.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //相同室内图，不需要替换楼层总数，只需要设置选中的楼层即可
+                                        if(mIndoorBuildingInfo == null || mIndoorBuildingInfo.poiid != indoorBuildingInfo.poiid) {
+
+                                            indoorFloorSwitchView
+                                                    .setItems(indoorBuildingInfo.floor_names);
+                                        }
+                                        indoorFloorSwitchView
+                                                .setSeletion(indoorBuildingInfo.activeFloorName);
+
+                                        mIndoorBuildingInfo = indoorBuildingInfo;
+                                    }
+                                });
+                            }
+                        }
+                    });
+                    indoorFloorSwitchView.setOnIndoorFloorSwitchListener(new IndoorFloorSwitchView.OnIndoorFloorSwitchListener() {
+                        @Override
+                        public void onSelected(int selectedIndex) {
+                            Log.e("amap", "indoor onselected " + selectedIndex+"   mindorr:::::"+mIndoorBuildingInfo);
+                            if (mIndoorBuildingInfo != null) {
+                                mIndoorBuildingInfo.activeFloorIndex = mIndoorBuildingInfo.floor_indexs[selectedIndex];
+                                mIndoorBuildingInfo.activeFloorName = mIndoorBuildingInfo.floor_names[selectedIndex];
+
+                                aMap.setIndoorBuildingInfo(mIndoorBuildingInfo);
+
+                            }
+                        }
+                    });
+//                    aMap.setOnMapLoadedListener(new AMap.OnMapLoadedListener() {
+//                        @Override
+//                        public void onMapLoaded() {
+//                            ToastUtil.showToastShort("地图加载完毕");
+//
+//                        }
+//                    });
+                    expandableLayout.addView(mapLayout);
                     break;
                 case 2:
                     int width1=context.getResources().getDisplayMetrics().widthPixels;
-                    int height1= ViewGroup.LayoutParams.WRAP_CONTENT;
+                    int height1= IUtils.dip2px(Classfy_ShangQuan2.this,300);
                     ViewGroup.LayoutParams v1=new ViewGroup.LayoutParams(width1,height1);
-                    ImageView imageView1=new ImageView(context);
-                    imageView1.setAdjustViewBounds(true);
-                    imageView1.setImageResource(R.drawable.test_mall);
-                    imageView1.setLayoutParams(v1);
-                    expandableLayout.addView(imageView1);
+
+                    mapView2.setLayoutParams(v1);
+                    expandableLayout.addView(mapView2);
 
                     break;
             }
@@ -235,6 +324,34 @@ public class Classfy_ShangQuan2 extends BaseActivity {
         public void onExpansionUpdate(float expansionFraction, int state) {
 
         }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
+        mapView1.onDestroy();
+        mapView2.onDestroy();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //在activity执行onResume时执行mMapView.onResume ()，重新绘制加载地图
+        mapView1.onResume();
+        mapView2.onResume();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //在activity执行onPause时执行mMapView.onPause ()，暂停地图的绘制
+        mapView1.onPause();
+        mapView2.onPause();
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，保存地图当前的状态
+        mapView1.onSaveInstanceState(outState);
+        mapView2.onSaveInstanceState(outState);
     }
 
 

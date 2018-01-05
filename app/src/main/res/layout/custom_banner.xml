@@ -66,7 +66,7 @@
                     android:focusableInTouchMode="true"
                     android:gravity="center_vertical"
                     android:singleLine="true"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:textColor="#ffffff"
                     android:visibility="gone" />
                 
@@ -78,6 +78,7 @@
                     android:singleLine="true"
                     android:ellipsize="marquee"
                     android:text="地址"
+                    android:drawablePadding="5dp"
                     android:layout_marginBottom="5dp"
                     android:id="@+id/m_location"/>
             </LinearLayout>
@@ -103,10 +104,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:textColor="@color/white"
                     android:layout_gravity="center_horizontal"
                     android:singleLine="true"
+
                     android:text="2.3km"
                     android:layout_marginBottom="10dp"
                     android:ellipsize="marquee"

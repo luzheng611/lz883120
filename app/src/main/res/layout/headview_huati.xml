@@ -58,7 +58,7 @@
             android:layout_centerVertical="true"
             android:text="我发布的话题"
             android:textColor="@color/wordblack"
-            android:textSize="18dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="4条"
-            android:textSize="18dp" />
+            android:textSize="16dp" />
 
     </RelativeLayout>
 
@@ -89,7 +89,7 @@
             android:layout_centerVertical="true"
             android:text="我关注的话题"
             android:textColor="@color/wordblack"
-            android:textSize="18dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="17条"
-            android:textSize="18dp" />
+            android:textSize="16dp" />
 
     </RelativeLayout>
 
@@ -117,12 +117,12 @@
             android:layout_height="60dp"
             android:src="@drawable/remenhuati" />
 
-        <ViewFlipper
+        <com.quzhao.CustomUI.UPMarqueeView
             android:id="@+id/viewflipper"
             android:layout_width="match_parent"
             android:layout_height="60dp">
 
-        </ViewFlipper>
+        </com.quzhao.CustomUI.UPMarqueeView>
 
     </LinearLayout>
     <View
@@ -133,10 +133,12 @@
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:background="@color/white"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:id="@+id/horizonal_view">
 
     </android.support.v7.widget.RecyclerView>
