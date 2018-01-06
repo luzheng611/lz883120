@@ -17,12 +17,12 @@ android {
         }
     }
     signingConfigs {
-//        debug {
-//            storeFile file('D://QuZhao/quzhao.jks')
-//            storePassword "883120"
-//            keyAlias "quzhao"
-//            keyPassword "883120"
-//        }
+        debug {
+            storeFile file('D://QuZhao/quzhao.jks')
+            storePassword "883120"
+            keyAlias "quzhao"
+            keyPassword "883120"
+        }
     }
 }
 
@@ -55,6 +55,8 @@ dependencies {
     compile 'me.zhanghai.android.materialratingbar:library:1.2.0'
     //播放器
     compile 'cn.jzvd:jiaozivideoplayer:6.2.3'
+    //侧滑删除
+    compile 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
 
     implementation 'com.android.support:recyclerview-v7:27.0.2'
 }

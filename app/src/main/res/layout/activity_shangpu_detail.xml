@@ -43,7 +43,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="观音桥新世界百货"
+                    android:text="观音桥新世界百货--阿迪达斯"
                     android:textColor="@color/black"
                     android:textSize="18dp"
                     android:textStyle="bold"

@@ -1,6 +1,7 @@
 package com.quzhao.Base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.quzhao.Activity.Detail.XingCheng;
 import com.quzhao.R;
 import com.quzhao.Util.IUtils;
 
@@ -27,7 +29,7 @@ public class ICardView {
         return view;
     }
 
-    public  static void  initCardView(Context context,View view){//用于布局实例化，初始化
+    public  static void  initCardView(final Context context, View view){//用于布局实例化，初始化
         TextView textView1=view.findViewById(R.id.xingcheng);
         TextView textView2=view.findViewById(R.id.shequ);
         TextView textView3=view.findViewById(R.id.wuliu);
@@ -68,6 +70,14 @@ public class ICardView {
         ss4.setSpan(new ForegroundColorSpan(Color.parseColor("#a3a3a3")),4,ss4.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         ss4.setSpan(new AbsoluteSizeSpan(dp16),4,ss4.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView4.setText(ss4);
+
+
+        textView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.startActivity(new Intent(context, XingCheng.class));
+            }
+        });
     }
 
 }

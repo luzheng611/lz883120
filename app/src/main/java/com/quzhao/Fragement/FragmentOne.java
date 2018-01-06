@@ -28,6 +28,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.quzhao.Activity.Detail.ShangShi_Detail;
+import com.quzhao.Activity.Detail.ShangShi_Detail_Search;
 import com.quzhao.Adapter.CyclePageAdapter;
 import com.quzhao.Base.ICardView;
 import com.quzhao.R;
@@ -60,7 +61,12 @@ public class FragmentOne extends Fragment {
 
         initBanner();
         initCuXiao();
-
+        view.findViewById(R.id.shangshi_more).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), ShangShi_Detail_Search.class));
+            }
+        });
         return view;
 
     }
@@ -124,9 +130,9 @@ public class FragmentOne extends Fragment {
         });
         final ArrayList images = new ArrayList();
         ArrayList titles = new ArrayList();
-        images.add(R.drawable.test_xiezi);
-        images.add(R.drawable.test_main_1);
-        images.add(R.drawable.test_main_2);
+        images.add("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3427925100,1586540657&fm=27&gp=0.jpg");
+        images.add("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1528842545,3940220255&fm=200&gp=0.jpg");
+        images.add("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1567535791,3145216400&fm=200&gp=0.jpg");
         titles.add("武侯区沃尔玛超市");
         titles.add("高新区家乐福超市");
         titles.add("锦江区欧尚超市");

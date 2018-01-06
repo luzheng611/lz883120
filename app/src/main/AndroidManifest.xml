@@ -30,7 +30,7 @@
     <application
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/quzhao"
         android:label="@string/app_name"
         android:name=".Base.mApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -56,13 +56,17 @@
 
        <!--商圈详情-->
         <activity android:name=".Activity.Detail.Classfy_ShangQuan2"/>
+        <!--商铺详情-->
+        <activity android:name=".Activity.Detail.Classfy_ShangPu"/>
+        <!--行程-->
+        <activity android:name=".Activity.Detail.XingCheng"/>
 
-        <activity android:name=".Activity.Detail.Classfy_ShangQuan"
+        <activity android:name=".Activity.Detail.ShangShi_Detail"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"/>
 
         <activity android:name=".Activity.MapTest"/>
-        <activity android:name=".Activity.Detail.ShangShi_Detail"/>
+        <activity android:name=".Activity.Detail.ShangShi_Detail_Search"/>
         <activity android:name=".Activity.Detail.Search"/>
 
         //城市选择

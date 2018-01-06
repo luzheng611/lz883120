@@ -15,7 +15,6 @@
         android:background="@color/white"
         android:padding="5dp"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
         android:src="@drawable/test_xiezi" />
 
 </LinearLayout>

@@ -12,7 +12,7 @@ public class mApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        instance=this;
     }
 
     public static mApplication getInstance() {

@@ -1,6 +1,7 @@
 package com.quzhao.Fragement;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,7 +16,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.quzhao.R;
+import com.quzhao.Util.IUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -42,15 +48,26 @@ public class FragmentTwo extends Fragment {
 
 
         banner=view.findViewById(R.id.banner);
-        banner.setBannerStyle(BannerConfig.NOT_INDICATOR);
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        banner.setIndicatorGravity(BannerConfig.RIGHT);
+
         final ArrayList images=new ArrayList();
         images.add(R.drawable.test_two_banner);
-        images.add(R.drawable.test_two_banner);
-        images.add(R.drawable.test_two_banner);
+        images.add("http://img5.imgtn.bdimg.com/it/u=2951020257,3752145132&fm=27&gp=0.jpg");
+        images.add("http://img5.imgtn.bdimg.com/it/u=1668560658,2152945151&fm=27&gp=0.jpg");
         banner.setImageLoader(new ImageLoader() {
             @Override
-            public void displayImage(Context context, Object path, ImageView imageView) {
-                imageView.setImageResource((Integer) path);
+            public void displayImage(Context context, Object path, final ImageView imageView) {
+                Glide.with(getActivity()).asBitmap().load(path)
+                        .apply(new RequestOptions().centerCrop()
+                                .override(getResources().getDisplayMetrics().widthPixels
+                                        , IUtils.dip2px(getActivity(), 80)))
+                        .into(new SimpleTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                                imageView.setImageBitmap(resource);
+                            }
+                        });
             }
         });
         banner.setOnBannerListener(new OnBannerListener() {

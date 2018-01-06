@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="#f0f0f0"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/black">
+
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/back"
+            android:padding="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:text="行程"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:showDividers="middle"
+            android:divider="@drawable/mdivider_1dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:textSize="18dp"
+                android:text="我的行程"
+                android:background="@color/white"
+                android:paddingLeft="10dp"
+                android:textColor="@color/wordblack"
+                android:gravity="center_vertical"/>
+            <com.quzhao.CustomUI.NoScrollRecyclerView
+                android:id="@+id/recycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.quzhao.CustomUI.NoScrollRecyclerView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:id="@+id/tuijian"
+                android:textSize="18dp"
+                android:paddingLeft="10dp"
+                android:background="@color/white"
+                android:textColor="@color/wordblack"
+                android:gravity="center_vertical"/>
+            <com.amap.api.maps.TextureMapView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:id="@+id/map_nvi">
+
+            </com.amap.api.maps.TextureMapView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:textSize="18dp"
+                android:background="@color/white"
+                android:text="所有行程路线"
+                android:paddingLeft="10dp"
+                android:textColor="@color/wordblack"
+                android:gravity="center_vertical"/>
+
+            <com.amap.api.maps.TextureMapView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:id="@+id/allMap">
+
+
+            </com.amap.api.maps.TextureMapView>
+
+            <include layout="@layout/custom_cardview"
+                android:id="@+id/cardview" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
+</LinearLayout>
