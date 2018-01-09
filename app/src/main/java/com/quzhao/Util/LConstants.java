@@ -17,6 +17,10 @@ public class LConstants {
     public static final LatLng BIGUIYUAN=new LatLng(30.4764171858,104.1328811646);
     public static final LatLng WANFUJING=new LatLng(30.6584500000,104.0798200000);
     public static final LatLng SHUNGALIUJICHANG=new LatLng(30.5698900000,103.9555400000);
+    public static final LatLng CHONGQING=new LatLng(29.5647100000,106.5507300000);
+    public static final LatLng XILINGXUESHAN=new LatLng(30.6144700000,103.1729100000);
+    public static final LatLng ZIYANG=new LatLng(30.1285900000,104.6279800000);
+    public static final LatLng MEISHAN=new LatLng(30.0756300000,103.8485100000);
 
 
 

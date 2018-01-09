@@ -36,9 +36,9 @@ public class DrivingRouteOverlay extends RouteOverlay {
     private PolylineOptions mPolylineOptionscolor;
     private Context mContext;
     private boolean isColorfulline = true;
-    private float mWidth = 20;
+    private float mWidth = 15;
     private List<LatLng> mLatLngsOfPath;
-
+    private int pos=0;//是第几条线路
 	public void setIsColorfulline(boolean iscolorfulline) {
 		this.isColorfulline = iscolorfulline;
 	}
@@ -51,7 +51,7 @@ public class DrivingRouteOverlay extends RouteOverlay {
      * @param context   当前的activity对象。
      */
     public DrivingRouteOverlay(Context context, AMap amap, DrivePath path,
-                               LatLonPoint start, LatLonPoint end, List<LatLonPoint> throughPointList) {
+                               LatLonPoint start, LatLonPoint end, List<LatLonPoint> throughPointList,int i) {
     	super(context);
     	mContext = context; 
         mAMap = amap; 
@@ -59,6 +59,8 @@ public class DrivingRouteOverlay extends RouteOverlay {
         startPoint = AMapUtil.convertToLatLng(start);
         endPoint = AMapUtil.convertToLatLng(end);
         this.throughPointList = throughPointList;
+        this.pos
+                =i;
     }
 
     public float getRouteWidth() {
@@ -78,6 +80,7 @@ public class DrivingRouteOverlay extends RouteOverlay {
      * 添加驾车路线添加到地图上显示。
      */
 	public void addToMap() {
+
 		initPolylineOptions();
         try {
             if (mAMap == null) {
@@ -110,7 +113,7 @@ public class DrivingRouteOverlay extends RouteOverlay {
                 endMarker.remove();
                 endMarker = null;
             }
-            addStartAndEndMarker();
+            addStartAndEndMarker(pos);
             addThroughPointMarker();
             if (isColorfulline && tmcs.size()>0 ) {
             	colorWayUpdate(tmcs);

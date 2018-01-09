@@ -92,7 +92,7 @@ public class RouteOverlay {
 	 * @since V2.1.0
 	 */
 	protected BitmapDescriptor getEndBitmapDescriptor() {
-		return BitmapDescriptorFactory.fromResource(R.drawable.amap_end);
+		return BitmapDescriptorFactory.fromResource(R.drawable.zhongdian);
 	}
 	/**
 	 * 给公交Marker设置图标，并返回更换图标的图片。如不用默认图片，需要重写此方法。
@@ -115,14 +115,36 @@ public class RouteOverlay {
 		return BitmapDescriptorFactory.fromResource(R.drawable.car);
 	}
 
-	protected void addStartAndEndMarker() {
+	protected void addStartAndEndMarker(int i) {
 		startMarker = mAMap.addMarker((new MarkerOptions())
 				.position(startPoint).icon(getStartBitmapDescriptor())
 				.title("\u8D77\u70B9"));
 		// startMarker.showInfoWindow();
+		if(i==0){//只有一条路线时用零
 
-		endMarker = mAMap.addMarker((new MarkerOptions()).position(endPoint)
-				.icon(getEndBitmapDescriptor()).title("\u7EC8\u70B9"));
+			endMarker = mAMap.addMarker((new MarkerOptions()).position(endPoint)
+					.icon(BitmapDescriptorFactory.fromResource(R.drawable.zhongdian)).title("\u7EC8\u70B9"));
+		}else if(i==1){
+			endMarker = mAMap.addMarker((new MarkerOptions()).position(endPoint)
+					.icon(BitmapDescriptorFactory.fromResource(R.drawable.zhongdian1)).title("行程1"));
+		}
+		else if(i==2){
+			endMarker = mAMap.addMarker((new MarkerOptions()).position(endPoint)
+					.icon(BitmapDescriptorFactory.fromResource(R.drawable.zhongdian2)).title("行程2"));
+		}
+		else if(i==3){
+			endMarker = mAMap.addMarker((new MarkerOptions()).position(endPoint)
+					.icon(BitmapDescriptorFactory.fromResource(R.drawable.zhongdian3)).title("行程3"));
+		}
+		else if(i==4){
+			endMarker = mAMap.addMarker((new MarkerOptions()).position(endPoint)
+					.icon(BitmapDescriptorFactory.fromResource(R.drawable.zhongdian4)).title("行程4"));
+		}
+		else if(i==5){
+			endMarker = mAMap.addMarker((new MarkerOptions()).position(endPoint)
+					.icon(BitmapDescriptorFactory.fromResource(R.drawable.zhongdian5)).title("行程5"));
+		}
+
 		// mAMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint,
 		// getShowRouteZoom()));
 	}

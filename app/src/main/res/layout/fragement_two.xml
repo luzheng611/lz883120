@@ -16,22 +16,60 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         app:delay_time="3000"
+        app:indicator_height="3dp"
+        app:indicator_width="10dp"
+        app:indicator_drawable_unselected="@drawable/shape_indicator_unselected"
+        app:indicator_drawable_selected="@drawable/shape_indicator_selected"
         app:is_auto_play="true">
 
     </com.youth.banner.Banner>
-    
-    <android.support.design.widget.TabLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:tabSelectedTextColor="@color/main_color"
-        app:tabIndicatorHeight="3dp"
-        app:tabTextColor="@color/black"
-        app:tabIndicatorColor="@color/main_color"
-        app:tabBackground="@color/white"
-        app:tabTextAppearance="@style/MyTabTextStyle"
-        android:id="@+id/tabs">
+        android:orientation="horizontal"
+        android:layout_height="50dp">
 
-    </android.support.design.widget.TabLayout>
+        <android.support.design.widget.TabLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            app:tabSelectedTextColor="@color/main_color"
+            app:tabIndicatorHeight="3dp"
+            app:tabTextColor="@color/black"
+            app:tabIndicatorColor="@color/main_color"
+            app:tabBackground="@color/white"
+            app:tabTextAppearance="@style/MyTabTextStyle"
+            android:id="@+id/tabs">
+
+        </android.support.design.widget.TabLayout>
+
+        <com.lijiankun24.shadowlayout.ShadowLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:shadowColor="#33000000"
+            app:shadowSide="left"
+            app:shadowDx="-2dp"
+            app:shadowDy="0dp"
+            app:shadowRadius="2dp"
+           >
+
+            <TextView
+                android:background="@color/white"
+                android:id="@+id/shaixuan"
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:textSize="14dp"
+                android:textColor="@color/wordblack"
+                android:text="综合排序"
+                android:singleLine="true"
+                android:drawablePadding="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:layout_height="match_parent" />
+
+        </com.lijiankun24.shadowlayout.ShadowLayout>
+
+    </LinearLayout>
+
 
 
     <View

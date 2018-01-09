@@ -61,7 +61,7 @@ public class WalkRouteOverlay extends RouteOverlay {
                
             }
             mPolylineOptions.add(endPoint);
-            addStartAndEndMarker();
+            addStartAndEndMarker(0);
 
             showPolyline();
         } catch (Throwable e) {

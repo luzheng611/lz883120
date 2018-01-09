@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#f0f0f0"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,16 +15,16 @@
             android:id="@+id/back"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:src="@drawable/back"
-            android:padding="15dp"/>
+            android:padding="15dp"
+            android:src="@drawable/back" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:textColor="@color/white"
             android:layout_centerInParent="true"
-            android:text="行程"/>
+            android:text="行程"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
     </RelativeLayout>
 
     <ScrollView
@@ -35,19 +35,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:showDividers="middle"
             android:divider="@drawable/mdivider_1dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:showDividers="middle">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:textSize="18dp"
-                android:text="我的行程"
                 android:background="@color/white"
+                android:gravity="center_vertical"
                 android:paddingLeft="10dp"
+                android:text="我的行程"
                 android:textColor="@color/wordblack"
-                android:gravity="center_vertical"/>
+                android:textSize="18dp" />
+
             <com.quzhao.CustomUI.NoScrollRecyclerView
                 android:id="@+id/recycle"
                 android:layout_width="match_parent"
@@ -56,47 +57,132 @@
             </com.quzhao.CustomUI.NoScrollRecyclerView>
 
             <TextView
+                android:id="@+id/tuijian"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:id="@+id/tuijian"
-                android:textSize="18dp"
-                android:paddingLeft="10dp"
                 android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
                 android:textColor="@color/wordblack"
-                android:gravity="center_vertical"/>
-            <com.amap.api.maps.TextureMapView
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:id="@+id/map_nvi">
+                android:textSize="18dp" />
 
-            </com.amap.api.maps.TextureMapView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.amap.api.maps.TextureMapView
+                    android:id="@+id/map_nvi"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp">
+
+                </com.amap.api.maps.TextureMapView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/car"
+                        android:textSize="14dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/sel_navi_overlay"
+                        android:textColor="@color/wordblack"
+                        android:text="驾车"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/bus"
+                        android:layout_marginRight="10dp"
+                        android:textSize="14dp"
+                        android:background="@drawable/sel_navi_overlay"
+                        android:textColor="@color/wordblack"
+                        android:text="公交"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/walk"
+                        android:textSize="14dp"
+                        android:background="@drawable/sel_navi_overlay"
+                        android:textColor="@color/wordblack"
+                        android:text="步行"/>
+
+                </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:paddingLeft="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/wordblack"
+                            android:text="我的位置"
+                            android:id="@+id/m_location"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="10dp"
+                            android:layout_gravity="center_vertical"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/zhi"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/wordblack"
+                            android:text="王府井百货"
+                            android:id="@+id/to_location"/>
+
+                    </LinearLayout>
+
+                <TextView
+                    android:id="@+id/msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:background="@color/white"
+                    android:text="时间，里程，红绿灯"
+                    android:padding="10dp"
+                    android:textColor="@color/wordhuise"/>
+
+            </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:textSize="18dp"
                 android:background="@color/white"
-                android:text="所有行程路线"
+                android:gravity="center_vertical"
                 android:paddingLeft="10dp"
+                android:text="所有行程路线"
                 android:textColor="@color/wordblack"
-                android:gravity="center_vertical"/>
+                android:textSize="18dp" />
+
 
             <com.amap.api.maps.TextureMapView
+                android:id="@+id/allMap"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:id="@+id/allMap">
-
+                android:layout_height="400dp">
 
             </com.amap.api.maps.TextureMapView>
 
-            <include layout="@layout/custom_cardview"
-                android:id="@+id/cardview" />
+
+            <!--<include-->
+                <!--android:id="@+id/cardview"-->
+                <!--layout="@layout/custom_cardview" />-->
 
 
         </LinearLayout>
 
 
     </ScrollView>
-
 
 
 </LinearLayout>

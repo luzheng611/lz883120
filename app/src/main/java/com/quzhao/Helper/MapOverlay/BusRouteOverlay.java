@@ -146,7 +146,7 @@ public class BusRouteOverlay extends RouteOverlay {
 					addTaxiMarkers(busStep.getTaxi());
 				}
 			}
-			addStartAndEndMarker();
+			addStartAndEndMarker(0);
 
 		} catch (Throwable e) {
 			e.printStackTrace();
