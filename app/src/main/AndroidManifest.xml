@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.quzhao">
 
 
@@ -68,6 +69,8 @@
         <activity android:name=".Activity.MapTest"/>
         <activity android:name=".Activity.Detail.ShangShi_Detail_Search"/>
         <activity android:name=".Activity.Detail.Search"/>
+        <activity android:name=".Activity.Register"
+            android:screenOrientation="portrait"/>
 
         //城市选择
         <activity

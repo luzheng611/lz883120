@@ -1,15 +1,262 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/container">
+    android:animateLayoutChanges="true"
+    android:id="@+id/container"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include layout="@layout/defaut_title"/>
+
+    <View android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_marginTop="45dp"
+        android:background="#f0f0f0"/>
+    <LinearLayout
+        android:id="@+id/phone_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:padding="25dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <com.ruffian.library.RTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/code"
+                app:icon_direction="right"
+                app:icon_width="8dp"
+                app:icon_height="15dp"
+                android:drawablePadding="5dp"
+                android:textSize="18dp"
+                android:textColor="@color/wordblack"
+                tools:text="+86"
+                app:icon_src_normal="@drawable/code_next"
+                />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/mdivider_1dp"/>
+
+            <EditText
+                android:id="@+id/phone"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textSize="18dp"
+                android:background="@null"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:hint="手机号"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/mdivider_1dp"/>
+
+        <com.ruffian.library.RTextView
+            android:id="@+id/next"
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            app:corner_radius="5dp"
+            android:textSize="20dp"
+            android:enabled="false"
+            android:text="下一步"
+            android:gravity="center"
+            app:background_normal="@color/main_color"
+            app:background_pressed="#d08f0d"
+            app:text_color_normal="@color/white"/>
+
+        <TextView
+            android:id="@+id/xieyi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/wordhuise"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:textSize="14dp"
+            android:text="用户协议"/>
+    </LinearLayout>
 
 
-    
+    <LinearLayout
+        android:id="@+id/mid_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:padding="25dp">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:textSize="18dp"
+            android:textColor="@color/wordblack"
+            android:text="请输入手机号收到的验证码"
+            android:gravity="center_vertical"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/mdivider_1dp"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:text="短信验证码"
+                android:textColor="@color/wordhuise"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/mdivider_1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+            <EditText
+                android:id="@+id/mid"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textSize="18dp"
+                android:layout_marginRight="5dp"
+                android:maxLength="6"
+                android:background="@null"
+                android:inputType="number"/>
+
+            <com.ruffian.library.RTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/getMid"
+                android:padding="5dp"
+                android:textSize="16dp"
+                app:text_color_normal="@color/wordblack"
+                app:text_color_pressed="@color/wordhuise"
+                app:text_color_unable="@color/wordhuise"
+                android:text="获取验证码"
+                />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/mdivider_1dp"/>
+
+        <com.ruffian.library.RTextView
+            android:id="@+id/mid_next"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            app:background_normal="@color/main_color"
+            app:text_color_normal="@color/white"
+            app:background_pressed="#d08f0d"
+            android:enabled="false"
+            android:gravity="center"
+            app:corner_radius="5dp"
+            android:text="下一步"
+            android:layout_marginTop="40dp"
+            android:textSize="20dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/password_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:padding="25dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:textColor="@color/wordhuise"
+            android:textSize="18dp"
+            android:gravity="center_vertical"
+            android:text="密码由6-25个字母组成"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@drawable/mdivider_1dp"/>
+        <EditText
+            android:id="@+id/password1"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:background="@null"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:maxLength="25"
+            android:gravity="center_vertical"
+           android:hint="输入密码"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/mdivider_1dp"/>
+
+        <EditText
+            android:id="@+id/password2"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:background="@null"
+            android:maxLength="25"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:gravity="center_vertical"
+            android:hint="确认密码"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/mdivider_1dp"/>
+
+        <com.ruffian.library.RTextView
+            android:id="@+id/commit"
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            app:corner_radius="5dp"
+            android:textSize="20dp"
+            android:enabled="false"
+            android:text="完成"
+            android:gravity="center"
+            app:background_normal="@color/main_color"
+            app:background_pressed="#d08f0d"
+            app:text_color_normal="@color/white"/>
+    </LinearLayout>
 
 
 </FrameLayout>

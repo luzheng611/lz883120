@@ -1,6 +1,7 @@
 package com.quzhao.Fragement;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.cpiz.android.bubbleview.BubblePopupWindow;
 import com.cpiz.android.bubbleview.BubbleStyle;
+import com.quzhao.Activity.Register;
 import com.quzhao.R;
 import com.quzhao.Util.IUtils;
 import com.youth.banner.Banner;
@@ -128,6 +130,8 @@ public class FragmentTwo extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        Intent intent=new Intent(getActivity(), Register.class);
+        startActivity(intent);
         switch (view.getId()){
             case R.id.shaixuan:
                 View rootView = LayoutInflater.from(getActivity()).inflate(R.layout.down_popop, null);

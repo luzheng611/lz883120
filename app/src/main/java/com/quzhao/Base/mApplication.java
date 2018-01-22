@@ -1,6 +1,9 @@
 package com.quzhao.Base;
 
+import android.app.Activity;
 import android.app.Application;
+
+import java.util.ArrayList;
 
 /**
  * 作者：因陀罗网 on 2018/1/5 18:33
@@ -9,6 +12,7 @@ import android.app.Application;
 
 public class mApplication extends Application {
     private static  mApplication instance;
+    public ArrayList<Activity> registerList=new ArrayList<>();
     @Override
     public void onCreate() {
         super.onCreate();
