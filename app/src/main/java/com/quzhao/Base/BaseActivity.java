@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.quzhao.Helper.QZHttpHelper;
 import com.quzhao.R;
 import com.quzhao.Util.StatusBarCompat;
 
@@ -16,6 +17,7 @@ import com.quzhao.Util.StatusBarCompat;
 public class BaseActivity extends AppCompatActivity {
     public ImageView back,right_icon;
     public TextView title,right_text;
+    public QZHttpHelper mHttpHelper;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -22,7 +22,8 @@ public class LConstants {
     public static final LatLng ZIYANG=new LatLng(30.1285900000,104.6279800000);
     public static final LatLng MEISHAN=new LatLng(30.0756300000,103.8485100000);
 
-
+// (http://findbuy.cn/qzapi.php/Appqz)
+    public static final String HOST="http://findbuy.cn/api.php/AppApi/";
 
 
 }

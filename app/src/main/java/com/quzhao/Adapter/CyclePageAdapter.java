@@ -38,7 +38,7 @@ public class CyclePageAdapter extends BaseQuickAdapter<HashMap<String,String >,B
     protected void convert(final BaseViewHolder helper, HashMap<String, String> item) {
         Glide.with(context)
                 .load(images[helper.getAdapterPosition()%images.length])
-                .apply(new RequestOptions().centerCrop().override(IUtils.dip2px(context,180),IUtils.dip2px(context,180)
+                .apply(new RequestOptions().override(IUtils.dip2px(context,160),IUtils.dip2px(context,160)
                 )).into((ImageView) helper.getView(R.id.image));
         helper.getView(R.id.image).setOnClickListener(new View.OnClickListener() {
             @Override

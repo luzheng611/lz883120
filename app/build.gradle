@@ -39,8 +39,8 @@ dependencies {
     //RecyclerView辅助
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     //图片加载
-    compile 'com.github.bumptech.glide:glide:4.4.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
+    implementation 'com.github.bumptech.glide:glide:4.5.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
     //提示消息
     compile 'com.github.GrenderG:Toasty:1.2.8'
     //滑动返回

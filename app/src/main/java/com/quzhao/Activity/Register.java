@@ -19,7 +19,9 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.quzhao.Base.Apis;
 import com.quzhao.Base.BaseActivity;
+import com.quzhao.Helper.QZHttpHelper;
 import com.quzhao.Helper.SpanHelpers.MyLinkMovementMethod;
 import com.quzhao.Helper.SpanHelpers.WeiBoContentClickableSpan;
 import com.quzhao.R;
@@ -27,12 +29,14 @@ import com.quzhao.Util.IUtils;
 import com.quzhao.Util.LogUtil;
 import com.quzhao.Util.ToastUtil;
 
+import java.util.HashMap;
+
 /**
  * Created by Administrator on 2018/1/20.
  */
 
 
-public class Register extends BaseActivity implements View.OnClickListener {
+public class Register extends BaseActivity implements View.OnClickListener,QZHttpHelper.DataListener {
     private TextView code,getMid;//国家编码
     private EditText phone,mid,password1,password2;//手机号码,验证码，密码1，密码2
     private TextView next,midNext,commit;//下一步,获取验证码，提交注册
@@ -42,10 +46,12 @@ public class Register extends BaseActivity implements View.OnClickListener {
     private LinearLayout phoneContainer,midContainer,passwordContainer;
     private LayoutTransition layoutTransition;//步骤动画管理器
     private CountDownTimer countDownTimer;//倒计时器
+    private String str_mid="";//临时mid
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
+        mHttpHelper=new QZHttpHelper(this);
         initTitle();
 
 
@@ -230,6 +236,9 @@ public class Register extends BaseActivity implements View.OnClickListener {
             case R.id.getMid:
                 getMid.setEnabled(false);
                 countDownTimer.start();
+                HashMap<String,String > map=new HashMap<>();
+                map.put("phone",phone.getText().toString().trim());
+                mHttpHelper.post(map, Apis.YZM);
                 break;
             case R.id.mid_next:
                 title.setText("设置密码");
@@ -250,5 +259,34 @@ public class Register extends BaseActivity implements View.OnClickListener {
             countDownTimer.cancel();
             countDownTimer=null;
         }
+    }
+
+    @Override
+    public void onSuccess(HashMap<String,String > map, String api) {
+        switch (api){
+            case Apis.YZM:
+                if("000".equals(map.get("code"))){
+                    str_mid=map.get("yzm");
+                }else if("002".equals(map.get("code"))){
+                    ToastUtil.showToastShort("验证码发送失败");
+                }
+
+                break;
+        }
+    }
+
+    @Override
+    public void onError(String response, String api) {
+
+    }
+
+    @Override
+    public void onStart(String api) {
+
+    }
+
+    @Override
+    public void onFinish(String api) {
+
     }
 }
