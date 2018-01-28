@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/defaut_title"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:text="手机账号登录"
+        android:textColor="@color/wordblack"
+        android:padding="20dp"
+        />
+
+    <EditText
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center_vertical"
+        android:textSize="18dp"
+        android:background="@null"
+        android:inputType="phone"
+        android:maxLength="11"
+        android:hint="请输入手机号码"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/mdivider_1dp"/>
+    <EditText
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/password"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center_vertical"
+        android:textSize="18dp"
+        android:background="@null"
+        android:maxLength="11"
+        android:hint="请输入密码"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/mdivider_1dp"/>
+
+    <com.ruffian.library.RTextView
+        android:id="@+id/login"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        app:corner_radius="5dp"
+        android:textSize="20dp"
+        android:enabled="false"
+        android:text="登录"
+        android:gravity="center"
+        app:background_normal="@color/main_color"
+        app:background_pressed="#d08f0d"
+        app:text_color_normal="@color/white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.ruffian.library.RTextView
+            android:id="@+id/toRegister"
+            android:paddingRight="15dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:text="账号注册"
+            android:gravity="right"
+            app:text_color_pressed="#80000000"
+            app:text_color_normal="@color/wordblack"
+            />
+
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="30dp"
+            android:background="@drawable/mdivider_1dp"/>
+
+        <com.ruffian.library.RTextView
+            android:paddingLeft="15dp"
+            android:id="@+id/toFindPassword"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:text="忘记密码"
+            app:text_color_pressed="#80000000"
+            app:text_color_normal="@color/wordblack"
+            />
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/wechat"
+        android:layout_marginTop="120dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/quzhao"/>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="bottom|center_horizontal"
+        android:paddingBottom="20dp"
+        android:id="@+id/xieyi"
+        android:textSize="14dp"
+        android:textColor="@color/wordhuise"
+        android:text="注册和登录即代表同意《用户服务协议》"/>
+</LinearLayout>

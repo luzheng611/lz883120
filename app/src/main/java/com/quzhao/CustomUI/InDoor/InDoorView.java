@@ -46,7 +46,7 @@ public class InDoorView extends SurfaceView implements SurfaceHolder.Callback, V
     private float scale, scaleFirst; //放大倍数
     private float bx, by; //图案初始坐标
     private DrawThread drawThread;//绘制线程
-    private final SurfaceHolder surfaceHolder;
+    private SurfaceHolder surfaceHolder;
     private FramesListener listener = null;
     private BitBuffer adapter;
     private boolean sendAble = true;
@@ -55,6 +55,10 @@ public class InDoorView extends SurfaceView implements SurfaceHolder.Callback, V
     private Scroller mScroller;
     private VelocityTracker mVelocityTracker;
     private Paint loopPaint;
+
+    public InDoorView(Context context) {
+        super(context,null);
+    }
 
     public InDoorView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -113,7 +117,7 @@ public class InDoorView extends SurfaceView implements SurfaceHolder.Callback, V
         drawThread.onDrawingListener(new DrawFramesListener() {
             public void onDraw(Canvas c) {
                 if (c != null && adapter != null && adapter.getBitBuffer() != null) {
-                    c.drawColor(Color.GRAY);
+                    c.drawColor(Color.LTGRAY);
                     c.scale(scale, scale);
                     c.drawBitmap(adapter.getBitBuffer(), bx / scale, by / scale, loopPaint);
                 }
@@ -188,7 +192,7 @@ public class InDoorView extends SurfaceView implements SurfaceHolder.Callback, V
     }
 
     public interface onClickMapListener {
-        void onClick(PathUnit unit);
+        void onClick(PathUnit unit,PointF pointF);
     }
 
     private onClickMapListener maplistener;
@@ -197,7 +201,7 @@ public class InDoorView extends SurfaceView implements SurfaceHolder.Callback, V
         if (adapter != null)
             for (PathUnit region : adapter.getPathUnit()) {
                 if (region.region.contains((int) ((event.getX() - bx) / scale), (int) ((event.getY() - by) / scale))) {
-                    if (maplistener != null) maplistener.onClick(region);
+                    if (maplistener != null) maplistener.onClick(region,new PointF(event.getX(),event.getY()));
                 }
             }
     }

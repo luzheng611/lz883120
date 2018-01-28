@@ -2,6 +2,9 @@ package com.quzhao.Activity.Detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,8 +39,13 @@ import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.model.Poi;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.cpiz.android.bubbleview.BubblePopupWindow;
+import com.cpiz.android.bubbleview.BubbleStyle;
 import com.quzhao.Base.BaseActivity;
 import com.quzhao.Base.ICardView;
+import com.quzhao.CustomUI.InDoor.Adapter.DataAdapter;
+import com.quzhao.CustomUI.InDoor.InDoorView;
+import com.quzhao.CustomUI.InDoor.Unit.PathUnit;
 import com.quzhao.CustomUI.IndoorFloorSwitchView;
 import com.quzhao.CustomUI.MapRecyclerView;
 import com.quzhao.R;
@@ -72,13 +81,14 @@ public class Classfy_ShangQuan2 extends BaseActivity {
 
     private TextView cuxiao, join;
     private ExpandbleAdapter adapter;
-//    private MapView mapView1;
-        private TextureMapView mapView1;
+    //    private MapView mapView1;
+    private TextureMapView mapView1;
     private TextureMapView mapView2;
     private IndoorFloorSwitchView indoorFloorSwitchView;
     private IndoorBuildingInfo mIndoorBuildingInfo;
     private RelativeLayout mapLayout;
-    private  boolean isFirstIn=true;
+    private boolean isFirstIn = true;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -191,7 +201,7 @@ public class Classfy_ShangQuan2 extends BaseActivity {
         private Context context;
         private Marker marker1;
         private int[] image = new int[]{R.drawable.test_recycle1, R.drawable.test_recycle2, R.drawable.test_recycle3};
-        private String[] titles = new String[]{"ZARA",  "琼斯","阿迪达斯"};
+        private String[] titles = new String[]{"ZARA", "琼斯", "阿迪达斯"};
         private String[] texts = new String[]{"满200减50", "全场8折", "满100减20"};
 
         public ExpandbleAdapter(Context context, @Nullable List<HashMap<String, String>> data) {
@@ -219,17 +229,17 @@ public class Classfy_ShangQuan2 extends BaseActivity {
                     linearLayout.setOrientation(LinearLayout.HORIZONTAL);
                     horizontalScrollView.addView(linearLayout);
                     for (int i = 0; i < 10; i++) {
-                        View view1=LayoutInflater.from(context).inflate(R.layout.shangpu_item,null);
-                        ImageView imageView=view1.findViewById(R.id.image);
+                        View view1 = LayoutInflater.from(context).inflate(R.layout.shangpu_item, null);
+                        ImageView imageView = view1.findViewById(R.id.image);
                         imageView.setImageResource(image[i % image.length]);
-                        ((TextView) view1.findViewById(R.id.title)).setText(titles[i%titles.length]);
-                        ((TextView) view1.findViewById(R.id.msg)).setText(texts[i%texts.length]);
+                        ((TextView) view1.findViewById(R.id.title)).setText(titles[i % titles.length]);
+                        ((TextView) view1.findViewById(R.id.msg)).setText(texts[i % texts.length]);
                         linearLayout.addView(view1);
                         view1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 ToastUtil.showToastShort("跳转商铺详情");
-                                startActivity(new Intent(Classfy_ShangQuan2.this,Classfy_ShangPu.class));
+                                startActivity(new Intent(Classfy_ShangQuan2.this, Classfy_ShangPu.class));
                             }
                         });
                     }
@@ -237,106 +247,81 @@ public class Classfy_ShangQuan2 extends BaseActivity {
                     expandableLayout.addView(horizontalScrollView);
                     break;
                 case 1:
-                    final AMap aMap = mapView1.getMap();
+                    View view1 = LayoutInflater.from(context).inflate(R.layout.indoor_view_container, null);
+                    recyclerView.setMapScrollView(view1);
+                    final InDoorView inDoorView = view1.findViewById(R.id.indoor);
+                    final View floatview = view1.findViewById(R.id.floatview);
+                    final DataAdapter dataAdapter = new DataAdapter();
+                    inDoorView.setAdapter(dataAdapter);
+                    BitmapFactory.Options bo=new BitmapFactory.Options();
+                    bo.inPreferredConfig= Bitmap.Config.RGB_565;
+                    final Bitmap bitmap=BitmapFactory.decodeResource(getResources(), R.drawable.test_indoor,bo);
+                    int screenWidth=getResources().getDisplayMetrics().widthPixels;
+                    LogUtil.e("图片宽高："+bitmap.getWidth()+"   "+bitmap.getHeight());
+                    FrameLayout.LayoutParams fl=new FrameLayout.LayoutParams(screenWidth,screenWidth*bitmap.getHeight()/bitmap.getWidth());
+                    inDoorView.setLayoutParams(fl);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
 
-                    MapUtils.changeCamera(aMap, CameraUpdateFactory.newCameraPosition(new CameraPosition(LConstants.SHINEIDITU, 18, 0, 30))
-                            , new AMap.CancelableCallback() {
-                                @Override
-                                public void onFinish() {
-                                    LogUtil.e("地图动画完成");
-                                }
+                            dataAdapter.setBmp(bitmap);
+                            ArrayList<PathUnit> unitArrayList=new ArrayList<>();
+                            float density = getResources().getDisplayMetrics().density;
+                            List<PointF> pointList = new ArrayList<>();
+                            pointList.add(new PointF(264f * density,527f * density));
+                            pointList.add(new PointF(316f * density,526f * density));
+                            pointList.add(new PointF( 316f * density,574f * density));
+                            pointList.add(new PointF(296f * density,575f * density));
+                            pointList.add(new PointF(293f * density,636f * density));
+                            pointList.add(new PointF(264f * density,636f * density));
+                            PathUnit pathUnit=new PathUnit(pointList);
+                            pathUnit.setName("测试是十四号");
+                            unitArrayList.add(pathUnit);
+                            dataAdapter.setList(unitArrayList);
+                            dataAdapter.refreshData();
+                        }
+                    }).start();
+                    inDoorView.setOnClickMapListener(new InDoorView.onClickMapListener() {
+                        @Override
+                        public void onClick(PathUnit unit,PointF pointF) {
+                            LogUtil.e("点击区域：：："+unit.getName()+"    "+unit.region);
+                            floatview.setTranslationX(pointF.x);
+                            floatview.setTranslationY(pointF.y);
+                            LogUtil.e("floatingview的坐标：：："+floatview.getY()+"   :::"+pointF.y);
+                            View rootView = LayoutInflater.from(context).inflate(R.layout.down_popop, null);
+                            final TextView zuijin=rootView.findViewById(R.id.zuijin);
+                            final TextView zuire=rootView.findViewById(R.id.zuire);
+                            final TextView zonghe=rootView.findViewById(R.id.zonghe);
 
+                            final BubblePopupWindow window = new BubblePopupWindow(rootView, (BubbleStyle) rootView.findViewById(R.id.layout));
+                            window.setCancelOnTouch(true);
+                            window.setCancelOnTouchOutside(true);
+                            window.setCancelOnLater(0);
+                            window.showArrowTo(floatview, BubbleStyle.ArrowDirection.Down);
+                            zuijin.setOnClickListener(new View.OnClickListener() {
                                 @Override
-                                public void onCancel() {
-                                    LogUtil.e("地图动画取消");
+                                public void onClick(View view) {
+                                    window.dismiss();
+
                                 }
                             });
-                    aMap.showIndoorMap(true);
-                    // 关闭SDK自带的室内地图控件
-                    aMap.getUiSettings().setIndoorSwitchEnabled(false);
-                    aMap.getUiSettings().setZoomControlsEnabled(false);
-                    UiSettings uiSettings = aMap.getUiSettings();
-//                    aMap.setLocationSource(this);//通过aMap对象设置定位数据源的监听
-//
-//                    uiSettings.setMyLocationButtonEnabled(true); //显示默认的定位按钮
-//
-//                    aMap.setMyLocationEnabled(true);// 可触发定位并显示当前位置
+                            zuire.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    window.dismiss();
 
-                    aMap.setOnIndoorBuildingActiveListener(new AMap.OnIndoorBuildingActiveListener() {
-                        @Override
-                        public void OnIndoorBuilding(final IndoorBuildingInfo indoorBuildingInfo) {
-                            Log.e("注册室内地图信息", "indoor OnIndoorBuilding " + indoorBuildingInfo);
-                            if (indoorBuildingInfo != null) {
-                                indoorFloorSwitchView.setVisible(true);
-                            } else {
-                                indoorFloorSwitchView.setVisible(false);
-                            }
-                            if (indoorBuildingInfo != null) {
-                                recyclerView.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        //相同室内图，不需要替换楼层总数，只需要设置选中的楼层即可
-                                        if (mIndoorBuildingInfo == null || mIndoorBuildingInfo.poiid != indoorBuildingInfo.poiid) {
-
-                                            indoorFloorSwitchView
-                                                    .setItems(indoorBuildingInfo.floor_names);
-                                        }
-                                        indoorFloorSwitchView
-                                                .setSeletion(indoorBuildingInfo.activeFloorName);
-
-                                        mIndoorBuildingInfo = indoorBuildingInfo;
-                                    }
-                                });
-                            }
+                                }
+                            });
+                            zonghe.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    window.dismiss();
+                                }
+                            });
                         }
                     });
-                    indoorFloorSwitchView.setOnIndoorFloorSwitchListener(new IndoorFloorSwitchView.OnIndoorFloorSwitchListener() {
-                        @Override
-                        public void onSelected(int selectedIndex) {
-                            Log.e("amap", "indoor onselected " + selectedIndex + "   mindorr:::::" + mIndoorBuildingInfo);
-                            if (mIndoorBuildingInfo != null) {
-                                mIndoorBuildingInfo.activeFloorIndex = mIndoorBuildingInfo.floor_indexs[selectedIndex];
-                                mIndoorBuildingInfo.activeFloorName = mIndoorBuildingInfo.floor_names[selectedIndex];
-
-                                aMap.setIndoorBuildingInfo(mIndoorBuildingInfo);
-                                if (marker1 != null) marker1.remove();
-                            }
-                        }
-                    });
-                    aMap.setOnPOIClickListener(new AMap.OnPOIClickListener() {
-                        @Override
-                        public void onPOIClick(Poi poi) {
-                            if (marker1 != null) {
-                                marker1.remove();
-                            }
-                            final MarkerOptions markerOptions = new MarkerOptions();
-                            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
-                            markerOptions.position(poi.getCoordinate()).title(poi.getName())
-//                                    .snippet(poi.getPoiId())
-                            ;
-                            marker1 = aMap.addMarker(markerOptions);
-                            marker1.showInfoWindow();
-
-                        }
-                    });
-                    aMap.setOnInfoWindowClickListener(new AMap.OnInfoWindowClickListener() {
-                        @Override
-                        public void onInfoWindowClick(Marker marker) {
-                            ToastUtil.showToastShort("跳转商铺详情");
-                            context.startActivity(new Intent(context,Classfy_ShangPu.class));
-                        }
-                    });
-
-
-
-//                    aMap.setOnMapLoadedListener(new AMap.OnMapLoadedListener() {
-//                        @Override
-//                        public void onMapLoaded() {
-//                            ToastUtil.showToastShort("地图加载完毕");
-//
-//                        }
-//                    });
-                    expandableLayout.addView(mapLayout);
+//                    initInDoorMap();
+                    expandableLayout.addView(view1);
 
                     break;
                 case 2:
@@ -357,21 +342,21 @@ public class Classfy_ShangQuan2 extends BaseActivity {
                     aMap2.setOnMapLoadedListener(new AMap.OnMapLoadedListener() {
                         @Override
                         public void onMapLoaded() {
-                            MarkerOptions markerOptions=new MarkerOptions();
+                            MarkerOptions markerOptions = new MarkerOptions();
                             markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
                             markerOptions.title("雅居乐").position(LConstants.YAJULE);
-                            Marker marker=aMap2.addMarker(markerOptions);
+                            Marker marker = aMap2.addMarker(markerOptions);
                             marker.showInfoWindow();
 
-                            MarkerOptions markerOptions3=new MarkerOptions();
+                            MarkerOptions markerOptions3 = new MarkerOptions();
                             markerOptions3.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
                             markerOptions3.title("银泰城").position(LConstants.YINGTAI);
-                            Marker marker3=aMap2.addMarker(markerOptions3);
+                            Marker marker3 = aMap2.addMarker(markerOptions3);
                             marker3.showInfoWindow();
-                            MarkerOptions markerOptions2=new MarkerOptions();
+                            MarkerOptions markerOptions2 = new MarkerOptions();
                             markerOptions2.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
                             markerOptions2.title("海昌极地公园").position(LConstants.HAICHANG);
-                            Marker marker2=aMap2.addMarker(markerOptions2);
+                            Marker marker2 = aMap2.addMarker(markerOptions2);
                             marker2.showInfoWindow();
                             LogUtil.e("设置marker");
                         }
@@ -380,20 +365,10 @@ public class Classfy_ShangQuan2 extends BaseActivity {
                     aMap2.setOnInfoWindowClickListener(new AMap.OnInfoWindowClickListener() {
                         @Override
                         public void onInfoWindowClick(Marker marker) {
-                            ToastUtil.showToastShort("跳转到"+marker.getTitle()+"商圈");
-                            startActivity(new Intent(context,Classfy_ShangQuan2.class));
+                            ToastUtil.showToastShort("跳转到" + marker.getTitle() + "商圈");
+                            startActivity(new Intent(context, Classfy_ShangQuan2.class));
                         }
                     });
-
-
-
-
-
-
-
-
-
-
 
 
                     expandableLayout.addView(mapView2);
@@ -415,6 +390,107 @@ public class Classfy_ShangQuan2 extends BaseActivity {
                     }
                 }
             });
+        }
+
+        private void initInDoorMap() {
+            final AMap aMap = mapView1.getMap();
+
+            MapUtils.changeCamera(aMap, CameraUpdateFactory.newCameraPosition(new CameraPosition(LConstants.SHINEIDITU, 18, 0, 30))
+                    , new AMap.CancelableCallback() {
+                        @Override
+                        public void onFinish() {
+                            LogUtil.e("地图动画完成");
+                        }
+
+                        @Override
+                        public void onCancel() {
+                            LogUtil.e("地图动画取消");
+                        }
+                    });
+            aMap.showIndoorMap(true);
+            // 关闭SDK自带的室内地图控件
+            aMap.getUiSettings().setIndoorSwitchEnabled(false);
+            aMap.getUiSettings().setZoomControlsEnabled(false);
+            UiSettings uiSettings = aMap.getUiSettings();
+//                    aMap.setLocationSource(this);//通过aMap对象设置定位数据源的监听
+//
+//                    uiSettings.setMyLocationButtonEnabled(true); //显示默认的定位按钮
+//
+//                    aMap.setMyLocationEnabled(true);// 可触发定位并显示当前位置
+
+            aMap.setOnIndoorBuildingActiveListener(new AMap.OnIndoorBuildingActiveListener() {
+                @Override
+                public void OnIndoorBuilding(final IndoorBuildingInfo indoorBuildingInfo) {
+                    Log.e("注册室内地图信息", "indoor OnIndoorBuilding " + indoorBuildingInfo);
+                    if (indoorBuildingInfo != null) {
+                        indoorFloorSwitchView.setVisible(true);
+                    } else {
+                        indoorFloorSwitchView.setVisible(false);
+                    }
+                    if (indoorBuildingInfo != null) {
+                        recyclerView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                //相同室内图，不需要替换楼层总数，只需要设置选中的楼层即可
+                                if (mIndoorBuildingInfo == null || mIndoorBuildingInfo.poiid != indoorBuildingInfo.poiid) {
+
+                                    indoorFloorSwitchView
+                                            .setItems(indoorBuildingInfo.floor_names);
+                                }
+                                indoorFloorSwitchView
+                                        .setSeletion(indoorBuildingInfo.activeFloorName);
+
+                                mIndoorBuildingInfo = indoorBuildingInfo;
+                            }
+                        });
+                    }
+                }
+            });
+            indoorFloorSwitchView.setOnIndoorFloorSwitchListener(new IndoorFloorSwitchView.OnIndoorFloorSwitchListener() {
+                @Override
+                public void onSelected(int selectedIndex) {
+                    Log.e("amap", "indoor onselected " + selectedIndex + "   mindorr:::::" + mIndoorBuildingInfo);
+                    if (mIndoorBuildingInfo != null) {
+                        mIndoorBuildingInfo.activeFloorIndex = mIndoorBuildingInfo.floor_indexs[selectedIndex];
+                        mIndoorBuildingInfo.activeFloorName = mIndoorBuildingInfo.floor_names[selectedIndex];
+
+                        aMap.setIndoorBuildingInfo(mIndoorBuildingInfo);
+                        if (marker1 != null) marker1.remove();
+                    }
+                }
+            });
+            aMap.setOnPOIClickListener(new AMap.OnPOIClickListener() {
+                @Override
+                public void onPOIClick(Poi poi) {
+                    if (marker1 != null) {
+                        marker1.remove();
+                    }
+                    final MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
+                    markerOptions.position(poi.getCoordinate()).title(poi.getName())
+//                                    .snippet(poi.getPoiId())
+                    ;
+                    marker1 = aMap.addMarker(markerOptions);
+                    marker1.showInfoWindow();
+
+                }
+            });
+            aMap.setOnInfoWindowClickListener(new AMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    ToastUtil.showToastShort("跳转商铺详情");
+                    context.startActivity(new Intent(context, Classfy_ShangPu.class));
+                }
+            });
+
+
+//                    aMap.setOnMapLoadedListener(new AMap.OnMapLoadedListener() {
+//                        @Override
+//                        public void onMapLoaded() {
+//                            ToastUtil.showToastShort("地图加载完毕");
+//
+//                        }
+//                    });
         }
 
         @Override
@@ -447,11 +523,11 @@ public class Classfy_ShangQuan2 extends BaseActivity {
         //在activity执行onResume时执行mMapView.onResume ()，重新绘制加载地图
         mapView1.onResume();
         mapView2.onResume();
-        if(isFirstIn){
+        if (isFirstIn) {
             openOrClose.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    isFirstIn=false;
+                    isFirstIn = false;
                     openOrClose.performClick();
                 }
             }, 300);
